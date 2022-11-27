@@ -19,6 +19,7 @@
   "homepage": "https://github.com/aaronangle/URL-Shortener#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "redis": "^4.5.1"
   }
 }

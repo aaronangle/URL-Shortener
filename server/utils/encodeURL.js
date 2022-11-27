@@ -1,4 +1,4 @@
-// encodeURL encode the ID of record in the sql table
+// encodeURL encode the ID of record in the sql table base 89 encodes
 module.exports = function (id) {
   return encode(id);
 };
@@ -15,96 +15,20 @@ function encode(number) {
   }
 }
 
-const characters = [
-  '!',
-  '"',
-  '$',
-  '&',
-  "'",
-  '(',
-  ')',
-  '*',
-  '+',
-  ',',
-  '-',
-  '.',
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  ':',
-  ';',
-  '<',
-  '=',
-  '>',
-  '@',
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z',
-  '[',
-  ']',
-  '^',
-  '_',
-  '`',
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z',
-  '{',
-  '|',
-  '}',
-  '~',
-];
+const characters = ['!', '"', '$', '&', "'", '(', ')', '*', '+', ',', '-', '.', ':', ';', '<', '=', '>', '@', '[', ']', '^', '_', '`', '{', '|', '}', '~'];
+
+addCharacters(48, 57);
+addCharacters(65, 90);
+addCharacters(97, 122);
+
+function addCharacters(start, end) {
+  let string = '';
+
+  for (let i = start; i <= end; i++) {
+    string += String.fromCharCode(i);
+  }
+
+  characters.push(...string.split(''));
+}
 
 const baseEncoderAmount = characters.length;

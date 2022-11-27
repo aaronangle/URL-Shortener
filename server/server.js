@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('./db/connection');
+const redis = require('./db/redis');
 const apiRoutes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
@@ -16,11 +17,15 @@ app.use((req, res) => {
   res.status(404).end();
 });
 
-// Start server after DB connection
+// Start server after DB and redis connection
 db.connect(err => {
   if (err) throw err;
   console.log('Database connected.');
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  redis.connect(err => {
+    if (err) throw err;
+    console.log('Redis connected.');
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
   });
 });
